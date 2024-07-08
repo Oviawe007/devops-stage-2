@@ -1,0 +1,3 @@
+[08/Jul/2024:16:50:21 +0000] 200 - GET http 16.170.251.49 "/" [Client 102.88.70.171] [Length 568] [Gzip 1.86] "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Safari/605.1.15" "-"
+[08/Jul/2024:17:01:15 +0000] 200 - GET http 16.170.251.49 "/" [Client 16.170.251.49] [Length 1033] [Gzip -] "curl/8.5.0" "-"
+[08/Jul/2024:17:01:33 +0000] 400 - GET http 16.170.251.49 "/" [Client 16.170.251.49] [Length 252] [Gzip -] "curl/8.5.0" "-"

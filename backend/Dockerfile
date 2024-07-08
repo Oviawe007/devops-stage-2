@@ -1,26 +1,25 @@
-# Use the official Python image from the Docker Hub
-FROM python:3.10-slim AS base
+# Use an official Python runtime as a parent image
+FROM python:3.10
 
-
-# Set the working directory
-WORKDIR /app
-
+RUN set -xe
 
 # Install Poetry
-RUN pip install poetry
+RUN curl -sSL https://install.python-poetry.org | python3 - --git https://github.com/python-poetry/poetry.git@master
 
+ENV PATH="/root/.local/bin:$PATH"
 
-# Copy only the requirements to cache them in docker layer
-COPY poetry.lock pyproject.toml /app/
+RUN poetry --version
+# RUN poetry new foobar
 
+# Set up the working directory
+WORKDIR /app
 
-# Install dependencies
-RUN poetry config virtualenvs.create false && poetry install --no-dev
-
-
-# Copy the rest of the application
+# Copy and install dependencies
 COPY . /app
 
+RUN poetry install
 
-# Run the application
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+EXPOSE 8000
+
+# Start the application
+CMD ["bash", "-c", "poetry run bash ./prestart.sh && poetry run uvicorn app.main:app --reload --host 0.0.0.0"]

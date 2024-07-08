@@ -1,22 +1,30 @@
-# Stage 1: Build the React app
-FROM node:20-alpine AS build
+# Use an official Node.js runtime as a parent image
+FROM node:20.15.0-alpine
 
-# Set working directory
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+# Copy the package.json and package-lock.json files
+#COPY package*.json ./
 
 # Install dependencies
+#RUN npm install
+
+# Copy the rest of the application code
+COPY . /app
 RUN npm install
+# Build the Vite app
+#RUN npm run build
 
-# Copy the rest of the application
-COPY . .
+# Check if the build directory exists
+#RUN ls -al /app/dist
 
+# Install serve globally
+#RUN npm install -g serve
 
-# Expose port 3000
+# Make port 5173 available to the world outside this container
 EXPOSE 5173
 
-
-# Run the development server on container start
-CMD ["npm", "run", "dev", "--", "--host"]
+# Serve the application
+#CMD ["serve", "-s", "dist"]
+CMD [ "npm", "run", "dev", "--", "--host" ]
